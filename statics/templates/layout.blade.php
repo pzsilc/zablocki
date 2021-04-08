@@ -49,6 +49,7 @@
                     </form>
                 </div>
             </nav>
+            @include('messages.index')
         </header>
         <main class="mt-5">
             @yield('main')

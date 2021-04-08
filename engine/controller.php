@@ -3,7 +3,7 @@ require_once __dir__.'/request.php';
 require_once __dir__.'/../vendor/autoload.php';
 use eftec\bladeone\BladeOne;
 
-abstract class Controller
+class Controller
 {
     protected $request;
 
@@ -40,12 +40,12 @@ abstract class Controller
         exit();
     }
 
-    protected function render($dir, $args=[])
+    public function render($dir, $args=[])
     {
         $csrf_token = $this->generate_csrf();
         global $app_name;
         global $app_path;
-        $messages = null;
+        $messages = [];
         if(isset($_SESSION['messages'])){
             $messages = $_SESSION['messages'];
             unset($_SESSION['messages']);
@@ -54,7 +54,7 @@ abstract class Controller
         $views = 'statics/templates';
         $cache = 'engine/cache';
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
-        echo $blade->run('index', array_merge(['app_name' => $app_name], $args));
+        echo $blade->run($dir, array_merge(['app_name' => $app_name, 'messages' => $messages], $args));
     }
 }
 

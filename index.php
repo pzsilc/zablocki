@@ -10,7 +10,9 @@ $url = substr($url, $first_slash_pos);
 if(!isset($routes[$url])){
     http_response_code(404);
     global $app_path;
-    include('/statics/templates/errors/404.php');
+    require_once __dir__.'/engine/controller.php';
+    $c = new Controller();
+    $c->render('errors.404');
     die();
 }
 

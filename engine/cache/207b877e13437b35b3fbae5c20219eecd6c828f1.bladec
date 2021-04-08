@@ -49,6 +49,7 @@
  </form>
  </div>
  </nav>
+ <?php echo $this->runChild('messages.index'); ?>
  </header>
  <main class="mt-5">
  <?php echo $this->yieldContent('main'); ?>
