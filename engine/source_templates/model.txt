@@ -1,0 +1,15 @@
+<?php
+
+require_once '../engine/model.php';
+require_once '../engine/fields.php';
+
+class __NAME__ extends Model
+{
+    const TABLE = '__TABLE__';
+    public function __construct()
+    {
+        //
+    }
+}
+
+?>

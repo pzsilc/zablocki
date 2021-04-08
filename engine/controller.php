@@ -1,11 +1,11 @@
 <?php
-require_once('engine/request.php');
-
+require_once('request.php');
+require "vendor/autoload.php";
+use eftec\bladeone\BladeOne;
 
 abstract class Controller
 {
     protected $request;
-
 
     public function __construct()
     {
@@ -42,7 +42,6 @@ abstract class Controller
 
     protected function render($dir, $args=[])
     {
-        extract($args);
         $csrf_token = $this->generate_csrf();
         global $app_name;
         global $app_path;
@@ -51,7 +50,11 @@ abstract class Controller
             $messages = $_SESSION['messages'];
             unset($_SESSION['messages']);
         }
-        include("statics/templates/$dir.php");
+
+        $views = 'statics/templates';
+        $cache = 'engine/cache';
+        $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
+        echo $blade->run('index', array_merge(['app_name' => $app_name], $args));
     }
 }
 

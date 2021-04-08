@@ -8,7 +8,7 @@ $database = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => '',
-    'db' => 'yoda'
+    'db' => 'ppp'
 ];
 
 ?>

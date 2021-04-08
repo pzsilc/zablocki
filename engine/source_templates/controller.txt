@@ -1,0 +1,9 @@
+<?php
+require_once '../engine/controller.php';
+
+class __NAME__ extends Controller
+{
+    //
+}
+
+?>

@@ -1,0 +1,10 @@
+{
+    "require": {
+        "eftec/bladeone": "^3.51"
+    },
+    "autoload": {
+        "psr-4": {
+          "eftec\\": "vendor/eftec/"
+        }
+    }
+}

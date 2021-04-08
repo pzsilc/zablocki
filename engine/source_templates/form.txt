@@ -1,0 +1,14 @@
+<?php
+require_once '../engine/form.php');
+require_once '../models/__MODEL__.php');
+
+class __NAME__ extends Form
+{
+    const MODEL = __MODEL__::class;
+    public function custom()
+    {
+        //
+    }
+}
+
+?>

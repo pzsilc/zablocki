@@ -128,30 +128,6 @@ class PasswordField extends Field
     }
 }
 
-class ForeignField extends Field
-{
-    public static function init($name, $className){
-        $class = get_called_class();
-        $obj = new $class($name, ['default'=>null]);
-        $obj->className = $className;
-        return $obj;
-    }
-
-    public function to_sql(){
-        return "INT";
-    }
-
-    public function __toString(){
-        $class = $this->className;
-        require_once("models/$class.php");
-        $objects = $class::all();
-        $html = "<select name='$this->name' $this->attrs><option value=''>Select...</option>";
-        foreach($objects as $obj){ $html .= "<option value='$obj->id'>$obj</option>"; }
-        $html .= "</select>";
-        return $html;
-    }
-}
-
 class DateTimeField extends Field
 {
     public function to_sql(){
