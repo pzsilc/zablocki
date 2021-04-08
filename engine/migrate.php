@@ -1,5 +1,5 @@
 <?php
-require_once '../config.php';
+require_once __dir__.'/../config.php';
 
 
 final class Migrator

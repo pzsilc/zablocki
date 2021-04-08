@@ -1,7 +1,7 @@
 <?php
 
-require_once '../engine/model.php';
-require_once '../engine/fields.php';
+require_once __dir__.'/../engine/model.php';
+require_once __dir__.'/../engine/fields.php';
 
 class __NAME__ extends Model
 {

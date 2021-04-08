@@ -1,6 +1,6 @@
 <?php
-require_once '../engine/form.php');
-require_once '../models/__MODEL__.php');
+require_once __dir__.'/../engine/form.php';
+require_once __dir__.'/../models/__MODEL__.php';
 
 class __NAME__ extends Form
 {

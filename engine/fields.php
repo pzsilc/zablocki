@@ -139,6 +139,38 @@ class DateTimeField extends Field
     }
 }
 
+class ForeignField extends Field
+{
+    private $_model = null;
+
+    public static function init($name, $_model=null, $settings=[]){
+        if(!is_array($settings) || !$_model) 
+            throw new Exception('Invalid args');
+        $o = new ForeignField($name, $settings);
+        $o->_model = $_model;
+        return $o;
+    }
+
+    public function to_sql(){
+        return "INT UNSIGNED";
+    }
+
+    public function __toString(){
+        $model = $this->_model;
+        $sample = new $model();
+        $model = $sample::class;
+        require_once __dir__."/../models/$model.php";
+        $entities = $model::all();
+        $res = "<select name='$this->name' $this->attrs>";
+        if(isset($this->settings['required']) && $this->settings['required'] == false) $res .= '<option value="">None</option>';
+        foreach($entities as $ent){
+            $res .= "<option value='$ent->id'>$ent</option>";
+        }
+        $res .= '</select>';
+        return $res;
+    }
+}
+
 
 
 

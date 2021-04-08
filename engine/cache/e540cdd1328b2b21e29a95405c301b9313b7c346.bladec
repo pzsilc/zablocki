@@ -1,5 +1,10 @@
 <?php $_shouldextend[1]=1; ?>
 <?php $this->startSection('main'); ?>
- <h1 class='text-center my-5'>Hello World!</h1>
+ <form class="col-6 mx-auto">
+ <h1 class='text-center my-5'>Add post</h1>
+ <?php echo $form; ?>
+
+ <input type='submit'/>
+ </form>
 <?php $this->stopSection(); ?>
 <?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

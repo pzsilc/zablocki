@@ -1,6 +1,6 @@
 <?php
-require_once('request.php');
-require "vendor/autoload.php";
+require_once __dir__.'/request.php';
+require_once __dir__.'/../vendor/autoload.php';
 use eftec\bladeone\BladeOne;
 
 abstract class Controller
