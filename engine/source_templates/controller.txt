@@ -1,9 +1,0 @@
-<?php
-require_once __dir__'/../engine/controller.php';
-
-class __NAME__ extends Controller
-{
-    //
-}
-
-?>

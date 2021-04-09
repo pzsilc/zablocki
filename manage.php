@@ -5,7 +5,7 @@ final class Manager
     const OPERATIONS = [
         ['migrate', 'migrate'],
         ['model', 'create_model'],
-        ['controller', 'create_controller'],
+        ['view', 'create_view'],
         ['form', 'create_form']
     ];
 
@@ -42,16 +42,16 @@ final class Manager
         echo "Model $name created successfuly";
     }
 
-    public static function create_controller($argv)
+    public static function create_view($argv)
     {
-        if(count($argv) !== 3) throw new Exception('Controller option is accepting exctly 1 param');
+        if(count($argv) !== 3) throw new Exception('View option is accepting exctly 1 param');
         $name = $argv[2];
-        $source = file_get_contents('engine/source_templates/controller.txt');
+        $source = file_get_contents('engine/source_templates/view.txt');
         $source = str_replace('__NAME__', $name, $source);
-        $file = fopen("controllers/$name.php", 'w');
+        $file = fopen("views/$name.php", 'w');
         fwrite($file, $source);
         fclose($file);
-        echo "Controller $name created successfuly";
+        echo "View $name created successfuly";
     }
 
     public static function create_form($argv)

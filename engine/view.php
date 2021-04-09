@@ -3,7 +3,7 @@ require_once __dir__.'/request.php';
 require_once __dir__.'/../vendor/autoload.php';
 use eftec\bladeone\BladeOne;
 
-class Controller
+class View
 {
     protected $request;
 

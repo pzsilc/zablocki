@@ -1,7 +1,8 @@
 <?php
+require_once 'engine/url.php';
 
-$routes = [
-    //
+$urls = [
+    url('/', 'HomeView', 'index'),
 ];
 
 ?>
