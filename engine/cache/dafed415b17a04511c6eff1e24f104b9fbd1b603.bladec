@@ -1,0 +1,22 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main'); ?>
+ <div>
+ Zlecenie nr: <?php echo \htmlentities($notification->id, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Status: <?php echo \htmlentities($notif_status->title, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Zgłaszający: <?php echo \htmlentities($notif_user->first_name, ENT_QUOTES, 'UTF-8', false); ?> <?php echo \htmlentities($notif_user->last_name, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Data wysłania zgłoszenia: <?php echo \htmlentities($notification->created_at, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Data rozpoczęcia zgłoszenia: <?php echo \htmlentities($notification->started_at, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Data zakończenia zgłoszenia: <?php echo \htmlentities($notification->ended_at, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ Planowany termin realizacji: <br/>
+ Treść zgłoszenia: <?php echo \htmlentities($notification->message, ENT_QUOTES, 'UTF-8', false); ?><br/>
+ </div>
+ <hr/>
+ <div>
+ <form method='POST' action='' enctype='multipart/form-data'>
+ <textarea name="content" class="form-control" placeholder='Dodaj komentarz'></textarea>
+ <input type='file' name='file' class='form-control'/>
+ <input type='submit' class='btn btn-primary' value='Aktualizuj'/>
+ </form>
+ </div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

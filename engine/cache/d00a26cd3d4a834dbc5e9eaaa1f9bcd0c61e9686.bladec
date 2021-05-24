@@ -1,0 +1,111 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main'); ?>
+ <div  class='mx-auto mt-5 pt-5' style='width: 80%;'>
+ <h1>Lista twoich zgłoszeń</h1>
+ <form method="GET" class='mt-5' id="filters">
+ <h3 class='mb-3'>Filtruj</h3>
+	    <label>
+ <p>Numer zamowienia</p>
+ <input type='text' name='number' value='<?php echo \htmlentities($filters["number"], ENT_QUOTES, 'UTF-8', false); ?>' class='form-control'/>
+	    </label>
+ <label>
+ <p>Status</p>
+ <select name="status_id" class="form-control">
+ <option value="">Wybierz...</option>
+ <?php $__currentLoopData = $statuses; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $status): $loop = $this->incrementLoopIndices();  ?>
+ <option value="<?php echo \htmlentities($status->id, ENT_QUOTES, 'UTF-8', false); ?>" <?php if($status->id == $filters['status_id']): ?> selected <?php endif; ?>>
+ <?php echo \htmlentities($status->name, ENT_QUOTES, 'UTF-8', false); ?>
+
+ </option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </select>
+ </label>
+ <label>
+ <p>Priorytet</p>
+ <select name="priority_id" class="form-control">
+ <option value="">Wybierz...</option>
+ <?php $__currentLoopData = $priorities; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $priority): $loop = $this->incrementLoopIndices();  ?>
+ <option value="<?php echo \htmlentities($priority->id, ENT_QUOTES, 'UTF-8', false); ?>" <?php if($priority->id == $filters['priority_id']): ?> selected <?php endif; ?>>
+ <?php echo \htmlentities($priority->name, ENT_QUOTES, 'UTF-8', false); ?>
+
+ </option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </select>
+ </label>
+ <label>
+ <p>Etap</p>
+ <select name="stage_id" class="form-control">
+ <option value="">Wybierz...</option>
+ <?php $__currentLoopData = $stages; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $stage): $loop = $this->incrementLoopIndices();  ?>
+ <option value="<?php echo \htmlentities($stage->id, ENT_QUOTES, 'UTF-8', false); ?>" <?php if($stage->id == $filters['stage_id']): ?> selected <?php endif; ?>>
+ <?php echo \htmlentities($stage->name, ENT_QUOTES, 'UTF-8', false); ?>
+
+ </option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </select>
+ </label>
+ <label>
+ <p>Szukaj w treści</p>
+ <input type="text" name="message" class='form-control' value="<?php echo \htmlentities($filters['message'], ENT_QUOTES, 'UTF-8', false); ?>"/>
+ </label>
+ <div class=''>
+ <input type='submit' class='btn btn-primary' value='Filtruj'/>
+ <a href='<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list' class='btn btn-danger text-light'>Resetuj</a>
+ </div>
+ </form>
+ <div class='orders-list-table-div'>
+ <table class='table table'>
+ <thead>
+ <tr>
+ <th>ID</th>
+ <th>Opis</th>
+ <th>Data dodania</th>
+ <th>Status</th>
+ <th>Priorytet</th>
+ <th>Etap</th>
+ <th>Twoja rola</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php if($orders): ?>
+ <?php $__currentLoopData = $orders; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $order): $loop = $this->incrementLoopIndices();  ?>
+ <tr>
+ <td><a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/single?id=<?php echo \htmlentities($order->id, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($order->id, ENT_QUOTES, 'UTF-8', false); ?></a></td>
+ <td><span style="font-size: 10px;"><?php echo html_entity_decode($order->message); ?></span></td>
+ <td><?php echo \htmlentities($order->created_at, ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($order->status->name, ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($order->priority->name, ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($order->stage ? $order->stage->name : '', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($order->user_id === $user->id ? 'Utworzenie' : 'Wykonanie', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php else: ?>
+ <p>Brak zamówień</p>
+ <?php endif; ?>
+ </tbody>
+ </table>
+ </div>
+	<div class='mb-5 pb-5'>
+	    <ul class="pagination pagination-sm">
+ <?php if($page > 1): ?>
+     <li class="page-item"><a class="page-link" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list?<?php echo \htmlentities($parameters, ENT_QUOTES, 'UTF-8', false); ?>"><<</a></li>
+ <?php endif; ?>
+ <?php if($page - 1 > 0): ?>
+     <li class="page-item"><a class="page-link" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list?<?php echo \htmlentities($parameters, ENT_QUOTES, 'UTF-8', false); ?>&page=<?php echo \htmlentities($page - 1, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($page - 1, ENT_QUOTES, 'UTF-8', false); ?></a></li>
+ <?php endif; ?>
+ <li class="page-item"><a class="page-link" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list?<?php echo \htmlentities($parameters, ENT_QUOTES, 'UTF-8', false); ?>&page=<?php echo \htmlentities($page, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($page, ENT_QUOTES, 'UTF-8', false); ?></a></li>
+ <?php if($page + 1 < $total_num_of_pages): ?>
+     <li class="page-item"><a class="page-link" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list?<?php echo \htmlentities($parameters, ENT_QUOTES, 'UTF-8', false); ?>&page=<?php echo \htmlentities($page + 1, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($page + 1, ENT_QUOTES, 'UTF-8', false); ?></a></li>
+ <?php endif; ?>
+ <?php if($page < $total_num_of_pages): ?>
+     <li class="page-item"><a class="page-link" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list?<?php echo \htmlentities($parameters, ENT_QUOTES, 'UTF-8', false); ?>&page=<?php echo \htmlentities($total_num_of_pages, ENT_QUOTES, 'UTF-8', false); ?>">>></a></li>
+ <?php endif; ?>
+	    </ul>
+	</div>
+ </div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

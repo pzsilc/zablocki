@@ -1,0 +1,105 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main'); ?>
+
+<h1>Statystyka</h1>
+<div class='container mt-5 pt-5'>
+ <div class='row'>
+ <div class='col-12 col-lg-6'>
+ <canvas id="start-chart"></canvas>
+ </div>
+ <div class='col-12 col-lg-6 mt-5 pt-5 mt-lg-0 pt-lg-0'>
+ <canvas id="end-chart"></canvas>
+ </div>
+ <div class='col-12 col-lg-7 mt-5 pt-5'>
+ <canvas id="total-chart"></canvas>
+ </div>
+ <div class='col-12 col-lg-5 mt-5 pt-5'>
+ <p>Całkowita liczba zamówień: <b><?php echo \htmlentities($total_num, ENT_QUOTES, 'UTF-8', false); ?></b></p>
+ <p>Średni czas rozpoczęcia zgłoszenia: <b><?php echo \htmlentities($start_average, ENT_QUOTES, 'UTF-8', false); ?></b> dni</p>
+ <p>Średni czas zakończenia zgłoszenia: <b><?php echo \htmlentities($end_average, ENT_QUOTES, 'UTF-8', false); ?></b> dni</p>
+ </div>
+ </div>
+</div>
+
+<script>
+ window.onload = function(){
+ let startHist = <?php echo \htmlentities(json_encode($start_hist), ENT_QUOTES, 'UTF-8', false); ?>;
+ let endHist = <?php echo \htmlentities(json_encode($end_hist), ENT_QUOTES, 'UTF-8', false); ?>;
+ let plotOfTotals = "<?php echo \htmlentities(json_encode($plot_of_totals), ENT_QUOTES, 'UTF-8', false); ?>";
+ let labelsHist = "<?php echo \htmlentities($hist_labels, ENT_QUOTES, 'UTF-8', false); ?>";
+ labelsHist = labelsHist.replaceAll('&quot;', '"');
+ labelsHist = JSON.parse(labelsHist);
+ plotOfTotals = plotOfTotals.replaceAll('&quot;', '"');
+ plotOfTotals = JSON.parse(plotOfTotals);
+
+ //charts
+ const ctxStart = document.getElementById('start-chart');
+ const ctxEnd = document.getElementById('end-chart');
+ const ctxTotal = document.getElementById('total-chart');
+
+ new Chart(ctxStart, {
+ type: 'bar',
+ data: {
+ labels: labelsHist,
+ datasets: [{
+ label: "Ilość zamówień",
+ data: startHist,
+ backgroundColor: [
+ 'rgba(255, 99, 132, 0.7)',
+ 'rgba(54, 162, 235, 0.7)',
+ 'rgba(255, 206, 86, 0.7)',
+ 'rgba(75, 192, 192, 0.7)',
+ 'rgba(153, 102, 255, 0.7)',
+ 'rgba(120, 159, 30, 0.7)',
+ 'rgba(200, 112, 230, 0.7)',
+ 'rgba(45, 34, 56, 0.7)'
+ ],
+ }]
+ }
+ });
+ new Chart(ctxEnd, {
+ type: 'bar',
+ data: {
+ labels: labelsHist,
+ datasets: [{
+ label: "Ilość zamówień",
+ data: endHist,
+ backgroundColor: [
+ 'rgba(255, 99, 132, 0.7)',
+ 'rgba(54, 162, 235, 0.7)',
+ 'rgba(255, 206, 86, 0.7)',
+ 'rgba(75, 192, 192, 0.7)',
+ 'rgba(153, 102, 255, 0.7)',
+ 'rgba(120, 159, 30, 0.7)',
+ 'rgba(200, 112, 230, 0.7)',
+ 'rgba(45, 34, 56, 0.7)'
+ ],
+ }]
+ }
+ });
+ 
+ new Chart(ctxTotal, {
+ type: 'line',
+ data: {
+ labels: Object.keys(plotOfTotals).reverse(),
+ datasets: [{ 
+ data: plotOfTotals,
+ label: "proces całkowitej realizacji",
+ borderColor: "#639cff",
+ fill: false
+ }]
+ },
+ options: {
+ title: {
+ display: true,
+ text: 'World population per region (in millions)'
+ }
+ }
+ });
+ }
+</script>
+
+
+
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

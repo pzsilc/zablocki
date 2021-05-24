@@ -157,8 +157,6 @@ class ForeignField extends Field
 
     public function __toString(){
         $model = $this->_model;
-        $sample = new $model();
-        $model = $sample::class;
         require_once __dir__."/../models/$model.php";
         $entities = $model::all();
         $res = "<select name='$this->name' $this->attrs>";

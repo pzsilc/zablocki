@@ -11,60 +11,82 @@
  <title><?php echo \htmlentities($app_name, ENT_QUOTES, 'UTF-8', false); ?></title>
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
  <link mhref="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" mrel="stylesheet">
+ <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'/>
+ <link href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/jQuery.filer-1.3.0/css/jquery.filer.css" type="text/css" rel="stylesheet" />
+ <link href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/jQuery.filer-1.3.0/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
+ <link rel="stylesheet" href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/css/app.css"/>
 </head>
 
 <body id="page-top">
  <header>
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
- <a class="navbar-brand" href="/">Logo</a>
- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
- <span class="navbar-toggler-icon"></span>
- </button>
- <div class="collapse navbar-collapse" id="navbarSupportedContent">
- <ul class="navbar-nav mr-auto">
- <li class="nav-item active">
- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
- </li>
- <li class="nav-item">
- <a class="nav-link" href="#">Link</a>
- </li>
- <li class="nav-item dropdown">
- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
- Dropdown
- </a>
- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
- <a class="dropdown-item" href="#">Action</a>
- <a class="dropdown-item" href="#">Another action</a>
- <div class="dropdown-divider"></div>
- <a class="dropdown-item" href="#">Something else here</a>
+ <?php if(isset($_SESSION['import_auth'])): ?>
+ <div class='bg-dark text-light text-center pt-5'>
+ <h2 class='brand'><?php echo \htmlentities($app_name, ENT_QUOTES, 'UTF-8', false); ?></h2>
+ <div class='mt-5'>
+ <hr/>
+ <div class='options-list text-left ml-4 pb-5'>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/"><i class="fa fa-plus mr-2"></i>DODAJ ZLECENIE</a>
+ <?php if($_SESSION['import_auth']->role->name === 'Zwykły użytkownik'): ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list"><i class="fa fa-list mr-2"></i>TWOJE ZAMÓWIENIA</a>
+ <?php elseif($_SESSION['import_auth']->role->name === 'Wykonawca' || $_SESSION['import_auth']->role->name === 'Wykonawca 2'): ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard"><i class="fa fa-list mr-2"></i>PANEL WYKONAWCY</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/archival"><i class="fa fa-archive mr-2"></i>ARCHIWUM</a>
+ <?php elseif($_SESSION['import_auth']->role->name === 'Administrator'): ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard"><i class="fa fa-database mr-2"></i>PANEL ADMINA</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/statistics"><i class="fa fa-window-restore mr-2"></i>STATYSTYKI</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/archival"><i class="fa fa-archive mr-2"></i>ARCHIWUM</a>
+ <?php elseif($_SESSION['import_auth']->role->name === 'Zarząd'): ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard"><i class="fa fa-database mr-2"></i>PANEL ZARZĄDCY</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/statistics"><i class="fa fa-window-restore mr-2"></i>STATYSTYKI</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/archival"><i class="fa fa-archive mr-2"></i>ARCHIWUM</a>
+ <?php elseif($_SESSION['import_auth']->role->name === 'Super Administrator'): ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/orders/list"><i class="fa fa-list mr-2"></i>TWOJE ZAMÓWIENIA</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard"><i class="fa fa-database mr-2"></i>PANEL SUPERADMINA</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/statistics"><i class="fa fa-window-restore mr-2"></i>STATYSTYKI</a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/dashboard/archival"><i class="fa fa-archive mr-2"></i>ARCHIWUM</a>
+ ???
+ <?php endif; ?>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/account" class="d-flex justify-content-between">
+ <span><i class="fa fa-user mr-2"></i>TWOJE KONTO</span>
+ <?php if($messages_num): ?>
+     <div class="bg-danger mr-2 text-light px-1"><?php echo \htmlentities($messages_num, ENT_QUOTES, 'UTF-8', false); ?></div>
+ <?php endif; ?>
+     </a>
+ <a href="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/logout"><i class="fa fa-sign-out-alt mr-2"></i>WYLOGUJ SIĘ</a>
  </div>
- </li>
- <li class="nav-item">
- <a class="nav-link disabled" href="#">Disabled</a>
- </li>
- </ul>
- <form class="form-inline my-2 my-lg-0">
- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
- </form>
+ <hr/>
+ <div class='mt-5 pt-5'>
+ <small class='text-muted font-weight-bold float-left ml-3'>Użytkownik</small><br/><br/>
+ <span class='user-info'><?php echo \htmlentities($_SESSION['import_auth']->fname, ENT_QUOTES, 'UTF-8', false); ?> <?php echo \htmlentities($_SESSION['import_auth']->lname, ENT_QUOTES, 'UTF-8', false); ?></span>
+ <br/>
+ <small class='user-info'>Rola: <?php echo \htmlentities($_SESSION['import_auth']->role->name, ENT_QUOTES, 'UTF-8', false); ?></small>
  </div>
- </nav>
+ </div>
+ <div>
+ <?php endif; ?>
  <?php echo $this->runChild('messages.index'); ?>
  </header>
  <main class="mt-5">
  <?php echo $this->yieldContent('main'); ?>
  </main>
- <footer class="sticky-footer bg-white">
+ <footer class='text-muted'>
  <div class="container my-auto">
  <div class="copyright text-center my-auto">
- <span>Copyright &copy; Your Website 2020</span>
+ <span>Copyright &copy; Silcare <?php echo \htmlentities(date('Y'), ENT_QUOTES, 'UTF-8', false); ?></span>
  </div>
  </div>
  </footer>
  </div>
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <script src="http://code.jquery.com/jquery-3.1.0.min.js" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+ <script src="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/jQuery.filer-1.3.0/js/jquery.filer.min.js"></script>
+ <script src="<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/jQuery.filer-1.3.0/examples/dragdrop/js/custom.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script src='<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/js/home.js'></script>
+ <script src='<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/js/messages.js'></script>
+ <script src='<?php echo \htmlentities($app_path, ENT_QUOTES, 'UTF-8', false); ?>/statics/js/statistics.js'></script>
 </body>
 
 </html>

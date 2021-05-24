@@ -13,10 +13,12 @@ final class Migrator
     public static function get_tables($conn)
     {
         $res = $conn->query("SHOW FULL TABLES");
-        while($row = $res->fetch_assoc()) {
-            $r = null;
-            foreach($row as $v){ $r = $v; break; }
-            array_push(Migrator::$db_all_tables, $r);
+        if($res->num_rows){
+            while($row = $res->fetch_assoc()) {
+                $r = null;
+                foreach($row as $v){ $r = $v; break; }
+                array_push(Migrator::$db_all_tables, $r);
+            }
         }
     }
 
@@ -33,7 +35,7 @@ final class Migrator
     {
         $prop = $attr->name.' '.$attr->to_sql();
         if(!isset($attr->settings['required']) || $attr->settings['required'] == true) $prop .= ' NOT NULL';
-        if(!isset($attr->settings['unique']) || $attr->settings['unique'] == true) $prop .= ' UNIQUE';
+        if(isset($attr->settings['unique']) && $attr->settings['unique'] == true) $prop .= ' UNIQUE';
         if(isset($attr->settings['default'])) $prop .= " DEFAULT '".$attr->settings['default']."'";
         return $prop;
     }
@@ -113,6 +115,7 @@ $dir = scandir('../models');
 Migrator::get_tables($conn);
 foreach(array_slice($dir, 2) as $file)
 {
+    if($file === '.gitignore') continue;
     $migrator = new Migrator($file);
     $migrator->run($conn);
 }

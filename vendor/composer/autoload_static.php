@@ -12,6 +12,10 @@ class ComposerStaticInit23e306e305a3e51296f13c9d446b63ab
             'eftec\\bladeone\\' => 15,
             'eftec\\' => 6,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -23,10 +27,15 @@ class ComposerStaticInit23e306e305a3e51296f13c9d446b63ab
         array (
             0 => __DIR__ . '/..' . '/eftec',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'SimpleXLSXGen' => __DIR__ . '/..' . '/shuchkin/simplexlsxgen/src/SimpleXLSXGen.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

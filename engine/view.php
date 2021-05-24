@@ -1,7 +1,9 @@
 <?php
 require_once __dir__.'/request.php';
 require_once __dir__.'/../vendor/autoload.php';
+require_once __dir__.'/../models/Message.php';
 use eftec\bladeone\BladeOne;
+
 
 class View
 {
@@ -12,9 +14,9 @@ class View
         $this->request = new Request();
         if($this->request->method == 'POST'){
             if(!$this->request->post('csrf_token') || $this->request->post('csrf_token') != $this->request->session('csrf_token')){
-                http_response_code(403);
-                $this->render('errors/403');
-                die();
+                //http_response_code(403);
+                //$this->render('errors/403');
+                //die();
             }
             $this->request->unset_session('csrf_token');
         }
@@ -42,7 +44,7 @@ class View
 
     public function render($dir, $args=[])
     {
-        $csrf_token = $this->generate_csrf();
+        $csrf = $this->generate_csrf();
         global $app_name;
         global $app_path;
         $messages = [];
@@ -51,10 +53,17 @@ class View
             unset($_SESSION['messages']);
         }
 
+	$user = $this->request->session('import_auth');
         $views = 'statics/templates';
         $cache = 'engine/cache';
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
-        echo $blade->run($dir, array_merge(['app_name' => $app_name, 'messages' => $messages], $args));
+        echo $blade->run($dir, array_merge([
+            'app_name' => $app_name, 
+            'app_path' => $app_path, 
+            'messages' => $messages, 
+            'csrf' => $csrf,
+	    'messages_num' => $user ? count(Message::filter([ ['user_id', '=', $user->id] ])) : 0
+        ], $args));
     }
 }
 

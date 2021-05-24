@@ -7,6 +7,7 @@ class Request
     private $method;
     private $post;
     private $get;
+    private $files;
     private $session;
     private $server;
 
@@ -15,6 +16,7 @@ class Request
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->post = array_map(function($e){ return htmlentities($e); }, $_POST);
         $this->get = array_map(function($e){ return htmlentities($e); }, $_GET);
+        $this->files = $_FILES;
         $this->session = $_SESSION;
         $this->server = $_SERVER;
     }
@@ -32,8 +34,14 @@ class Request
 
     public function post($key = null, $default_val = null)
     {
-        if(!$key) { return $this->post; }
+        if(!$key) { return $this->files; }
         return (isset($this->post[$key]) ? $this->post[$key] : $default_val);
+    }
+
+    public function files($key = null, $default_val = null)
+    {
+        if(!$key) { return $this->post; }
+        return (isset($this->files[$key]) ? $this->files[$key] : $default_val);
     }
 
     public function session($key = null, $default_val = null)

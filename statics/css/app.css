@@ -1,0 +1,152 @@
+/* GENERAL */
+.btn, .form-control{
+    border-radius: 0;
+}
+
+.btn-primary{
+    background:#6583fc;
+    border-color: #6583fc;
+}
+
+.btn-primary:focus .btn-primary:hover{
+    background:#4361da;
+    border-color: #4361da;
+}
+
+.blue-v2{
+    color: #6583fc;
+}
+
+main a{
+    color: #6583fc !important;
+}
+
+main a:hover{
+    color: #4361da;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+/* HEADER */
+header .bg-dark{
+    position: fixed;
+    width: 260px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+}
+
+header .user-info{
+    color: #c0c0c0;
+}
+
+header .brand{
+    color: #6583fc !important;
+}
+
+header a{
+    z-index: 1000000;
+    position: static;
+}
+
+header .options-list{
+    margin-top: 70px;
+}
+
+header .options-list a{
+    display: block;
+    padding: 10px 0px;
+    color: #6c757d;
+    font-weight: bold;
+}
+
+header .options-list a:hover{
+    text-decoration: none;
+    color: #999;
+    transition: 0.5s;
+}
+
+.message{
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+.m-success{ border-left: 10px solid #06a523; }
+.m-info{ border-left: 10px solid #05a0a6; }
+.m-error{ border-left: 10px solid #ba1323; }
+
+/* LOGIN */
+#login-image{
+    width: 60%; 
+    height:100%; 
+    margin-top: -50px;
+}
+
+#login-image img{
+    width: calc(100% + 100px); 
+    height:100%;
+}
+
+/* MAIN */
+main{
+    margin-left: 300px;
+    margin-right: 100px;
+}
+
+#add-order-form{
+    width: 60%;
+    margin: 200px auto;
+}
+
+#filters{
+    text-align: center;
+}
+
+#filters label p{
+    margin-bottom: 0px;
+}
+
+.orders-list-table-div{
+    min-height: 700px;
+    margin-top: 60px;
+}
+
+#page404{
+    height: 1100px;
+    text-align: center;
+}
+
+#page404 h1{
+    padding-top: 200px !important;
+    font-size: 80px;
+}
+
+.comment{
+    width: 80%;
+    margin: 20px auto;
+    border: solid 1px #c0c0c0;
+    padding: 20px;
+}
+
+.comment-form{
+    width: 80%;
+    margin: 20px auto;
+    margin-top: 50px;   
+}
+
+#account{
+    width: 90%;
+    max-width: 600px;
+    margin: 200px auto 500px;
+}
+
+
+
+/* FOOTER */
+footer{
+    background-color: hsl(0, 1%, 20%);
+    padding: 16px 0px;
+    margin-top: -50px;
+    margin-bottom: 0;
+}
